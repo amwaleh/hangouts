@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     {% load static %}
+    {#    load custom filters#}
     {% load math_filter %}
 
     <meta charset="UTF-8">
@@ -10,56 +11,74 @@
     {% include 'material/includes/material_js.html' %}
     <title>Title</title>
 </head>
+
 <body>
 <div class="container">
-<div class="row">
-{% for group in context %}
-<div class="col s12 m7 l6">
-    <h3 class="header active dark-cyan-text">Group {{ context.number|multiply:forloop.counter }} </h3>
-    <div class="card horizontal">
-      <div class="card-image">
-        <img src="http://lorempixel.com/120/200/abstract/" height="100%">
-      </div>
-      <div class="card-stacked">
-        <div class="card-content">
-          <ul class="collection">
-        {% for people in group %}
-            <li class="collection-item avatar">
-                <i class="material-icons circle cyan"> group</i> {{ people }}</li>
-        {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="card col l4 ">
+            <div class="card-content ">
+                <form action="" method="post">
+                    <h5> Insert Number of people per group</h5>
+                    {% csrf_token %}
+                    <input type="number" name="group" required>
+                    <input type="submit" value="submit" class="button btn-large right">
+
+                </form>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+{# card to display groups #}
+<h6>groups generate on:  {{ date_generated }} </h6>
+    {{ date_generated| timesince }}
+    <div class="row">
+        {% for group in context %}
+            <div class="col s12 m7 l6 ">
+                <h3 class="header active dark-cyan-text">Group {{ context.number|multiply:forloop.counter }} </h3>
+                <div class="card horizontal">
+                    <div class="card-image">
+                        <img src="http://lorempixel.com/120/200/abstract/" height="100%" alt=" ...">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <ul class="collection">
+                                {% for people in group %}
+                                    <li class="collection-item avatar">
+                                        <i class="material-icons circle cyan"> group</i> {{ people }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-{% endfor %}
-
-
-<div class="pagination">
-{% if context.has_other_pages %}
-  <ul class="pagination">
-    {% if context.has_previous %}
-      <li><a href="?page={{ context.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
-    {% endif %}
-    {% for i in context.paginator.page_range %}
-      {% if context.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if context.has_next %}
-      <li><a href="?page={{ context.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
-  </ul>
-{% endif %}
-</div>
-</div>
+        {% endfor %}
+    </div>
+{# pagination #}
+    <div class=" row">
+        {% if context.has_other_pages %}
+            <ul class="pagination">
+                {% if context.has_previous %}
+                    <li><a href="?page={{ context.previous_page_number }}">&laquo;</a>
+                    </li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in context.paginator.page_range %}
+                    {% if context.number == i %}
+                        <li class="cyan"><span>{{ i }} <span class=" cyan">(current)</span></span></li>
+                    {% else %}
+                        <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if context.has_next %}
+                    <li><a href="?page={{ context.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+{{ mongo }}
 </div>
 </body>
 </html>
