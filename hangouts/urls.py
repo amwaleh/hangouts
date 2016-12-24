@@ -19,6 +19,6 @@ from groups import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'$', views.Home)
+    url(r'^$', views.Home),
 
 ]

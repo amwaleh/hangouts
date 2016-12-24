@@ -1,24 +1,44 @@
 from random import shuffle
 import os
-def create_groups(group_number):
-    result = list()
+from .models import Groups
+
+def read_from_file(max_number_per_group):
+    '''
+    This reads from a file, should be able to pull from api
+    :param max_number_per_group: max number of objects per group
+    :return: a list of groups
+    '''
     with open(os.path.abspath('./groups/sample.txt'), 'r') as f:
         names = f.read()
         names_list = names.replace(" ", '').split()
+    return create_groups(names_list, max_number_per_group)
 
+
+def create_groups(names_list, max_number_per_group):
+    '''
+    :param names_list:  the list with names to be grouped
+    :param max_number_per_group:  the max number of objects in a group
+    :return: returns a list of groups
+    '''
+    result = list()
     shuffle(names_list)
-    if group_number > 0:
+    if max_number_per_group > 0:
         for item in range(len(names_list)):
-            start = item * group_number
-            stop = (item + 1) * group_number
+            start = item * max_number_per_group
+            stop = (item + 1) * max_number_per_group
             result.append(names_list[start:stop])
             if stop > len(names_list)-1:
                 break
         else:
-            return ['no names were ']
+            return ['list was empty ']
     return result
 
-if __name__ == '__main__':
-    g = create_groups(4)
-    for i, item in enumerate(g):
-        print(i, item)
+def save_groups(list_of_groups):
+    '''
+    :param list_of_groups: a list of the groups that have been created
+    :return: last object saved in the database
+    '''
+    groups = Groups(groups=list_of_groups)
+    groups.save()
+    return groups.groups
+
