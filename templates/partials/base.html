@@ -9,17 +9,18 @@
     {% include 'material/includes/material_css.html' %}
     <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script>
     {% include 'material/includes/material_js.html' %}
-    <title>Title</title>
+    <title>Hangouts</title>
 </head>
 
 <body>
 <nav>
-    <div class="nav-wrapper cyan darken-1">
-        <a href="{% url 'index' %}" class="brand-logo">Hangouts</a>
+    <div class="nav-wrapper cyan darken-1 ">
+        <a href="{% url 'index' %}" class="brand-logo">
+            Hangouts</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="sass.html">Sass</a></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'collections' %}">Collections</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
+            <li><a href="#">login</a></li>
         </ul>
     </div>
 </nav>

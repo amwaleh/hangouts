@@ -1,7 +1,8 @@
  {% block content %}
+    {% if context.number %}
  <div class=" row">
         {% if context.has_other_pages %}
-            <ul class="pagination">
+            <ul class="pagination ">
                 {% if context.has_previous %}
                     <li><a href="?page={{ context.previous_page_number }}">&laquo;</a>
                     </li>
@@ -10,9 +11,9 @@
                 {% endif %}
                 {% for i in context.paginator.page_range %}
                     {% if context.number == i %}
-                        <li class="cyan"><span>{{ i }} <span class=" cyan">(current)</span></span></li>
+                        <li class="cyan lighten-3"><span>{{ i }} <span>(current)</span></span></li>
                     {% else %}
-                        <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                        <li class="waves-effect"><a href="?page={{ i }}" class="grey-text">{{ i }}</a></li>
                     {% endif %}
                 {% endfor %}
                 {% if context.has_next %}
@@ -23,5 +24,5 @@
             </ul>
         {% endif %}
     </div>
-
+{% endif %}
 {% endblock %}

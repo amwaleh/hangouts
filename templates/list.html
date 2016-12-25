@@ -1,0 +1,23 @@
+{% extends './partials/base.html' %}
+{% load my_filter %}
+{% block content %}
+    <div class="row">
+<h2 class="blue-grey-text"><i class="material-icons medium">list</i>List</h2>
+    <ul class="collection col l6">
+{% for i in context %}
+
+      <li class="collection-item avatar">
+      <i class="material-icons circle cyan lighten-2">perm_identity</i>
+
+
+      <p>
+        {% for itemg in i.0|split %}
+            {{itemg}}<br>
+            {% endfor %}
+      </p>
+
+    </li>
+{% endfor %}
+    <ul>
+        </div>
+{% endblock %}

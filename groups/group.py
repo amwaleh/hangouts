@@ -30,7 +30,8 @@ def create_groups(names_list, max_number_per_group=2):
             if stop > len(names_list)-1:
                 break
         else:
-            return ['list was empty ']
+            return ['list is empty ']
+
     return result
 
 def save_groups(list_of_groups):
@@ -40,5 +41,6 @@ def save_groups(list_of_groups):
     '''
     groups = Groups(groups=list_of_groups)
     groups.save()
-    return groups.groups
+    return groups
+
 

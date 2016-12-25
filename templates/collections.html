@@ -7,13 +7,12 @@
 
       <li class="collection-item avatar">
       <i class="material-icons circle cyan lighten-2">insert_chart</i>
-      <span class="title"> {{ i.id }} | {{ i.created }}</span>
+      <span class="title">  {{ i.created }}</span>
       <p>
           groups of : {{ i.groups.0| length}}
       </p>
-      <a href="{{ i.id }}" class="secondary-content brown-text">{{ i.created | timesince }}  <i class="material-icons">star</i></a>
+      <a href="{%  url 'group' i.id %}" class="secondary-content brown-text">{{ i.created | timesince }}  <i class="material-icons">star</i></a>
     </li>
-
 {% endfor %}
     <ul>
         </div>
