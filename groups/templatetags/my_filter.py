@@ -14,4 +14,3 @@ def comma_split(value):
     if value:
         words = value.split(",")
         return words
-
