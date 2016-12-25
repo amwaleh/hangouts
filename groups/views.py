@@ -26,7 +26,12 @@ def Home(request):
         mongo_result = save_groups(groups)
         paginator = Paginator(groups, groups_per_page)
         content_to_view = paginator.page(page)
-        return render (request, context={"context":content_to_view, "id":mongo_result.id, "groups_of": groups_of},template_name="index.html")
+        content = {
+                    "context": content_to_view,
+                   "id": mongo_result.id,
+                   "groups_of": groups_of
+                   }
+        return render (request, context=content,template_name="index.html")
 
     page = int(request.GET.get('page') or 0)
     if page:
@@ -36,6 +41,7 @@ def Home(request):
         content = {
             "context":content_to_view,
             "date_generated" : groups.created,
+            "id" : groups.id
                    }
         return render(request, context=content, template_name="index.html")
     return render (request, template_name="index.html")
