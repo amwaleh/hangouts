@@ -8,3 +8,10 @@ register = template.Library()
 def multiply (value, arg):
     content_per_page = settings.GROUPS_PER_PAGE
     return ((value-1) * content_per_page) + arg
+
+@register.filter(name="split")
+def comma_split(value):
+    if value:
+        words = value.split(",")
+        return words
+

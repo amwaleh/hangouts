@@ -1,0 +1,20 @@
+{% extends './partials/base.html' %}
+{% block content %}
+    <div class="row">
+<h2>collections</h2>
+    <ul class="collection col l6">
+{% for i in context %}
+
+      <li class="collection-item avatar">
+      <i class="material-icons circle cyan lighten-2">insert_chart</i>
+      <span class="title"> {{ i.id }} | {{ i.created }}</span>
+      <p>
+          groups of : {{ i.groups.0| length}}
+      </p>
+      <a href="{{ i.id }}" class="secondary-content brown-text">{{ i.created | timesince }}  <i class="material-icons">star</i></a>
+    </li>
+
+{% endfor %}
+    <ul>
+        </div>
+{% endblock %}

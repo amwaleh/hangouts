@@ -1,84 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    {#    load custom filters#}
-    {% load math_filter %}
+{% extends './partials/base.html' %}
+    {% load my_filter %}
+{% block content %}
+    {% if not context %}
+        <div class="row ">
+            <div class="card col l6  offset-l3  ">
+                <div class="card-content">
+                    <form action="" method="post">
+                        <h5> Insert Number of people per group</h5>
+                        {% csrf_token %}
+                        <input type="number" name="group" require min="1" value="2">
+                        <input type="submit" value="submit" class="button btn-large right">
 
-    <meta charset="UTF-8">
-    {% include 'material/includes/material_css.html' %}
-    <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script>
-    {% include 'material/includes/material_js.html' %}
-    <title>Title</title>
-</head>
-
-<body>
-<div class="container">
-    <div class="row">
-        <div class="card col l4 ">
-            <div class="card-content ">
-                <form action="" method="post">
-                    <h5> Insert Number of people per group</h5>
-                    {% csrf_token %}
-                    <input type="number" name="group" required>
-                    <input type="submit" value="submit" class="button btn-large right">
-
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
+    {% endif %}
+    {# card to display groups #}
+    <div class="row valign-wrapper">
+        <div class="card col s12 l12 cyan accent-4">
+            <div class="card-content">
+
+                <h5 class="white-text left-align"><i class="material-icons  medium z-depth-1 circle white cyan-text">verified_user</i>
+                    groups generate on: {{ date_generated }} </h5>
+            </div>
+            <span class="right">{{ date_generated| timesince }}</span>
+        </div>
     </div>
-{# card to display groups #}
-<h6>groups generate on:  {{ date_generated }} </h6>
-    {{ date_generated| timesince }}
     <div class="row">
         {% for group in context %}
-            <div class="col s12 m7 l6 ">
-                <h3 class="header active dark-cyan-text">Group {{ context.number|multiply:forloop.counter }} </h3>
-                <div class="card horizontal">
-                    <div class="card-image">
-                        <img src="http://lorempixel.com/120/200/abstract/" height="100%" alt=" ...">
+            <div class="col s12 m12 l6 ">
+                <div class="card horizontal light-blue lighten-5">
+                    <div class="card-content">
                     </div>
                     <div class="card-stacked">
-                        <div class="card-content">
-                            <ul class="collection">
-                                {% for people in group %}
-                                    <li class="collection-item avatar">
-                                        <i class="material-icons circle cyan"> group</i> {{ people }}</li>
-                                {% endfor %}
-                            </ul>
+                        <div class="card-content white z-depth-1">
+                            <h5 class="header active cyan-text left-align">
+                            Group {{ context.number|multiply:forloop.counter }} </h5>
+                            {% for people in group %}
+                                <div class="col s12 l6">
+                                    <div class="card-panel grey lighten-5 z-depth-3">
+                                        <div class="row  center-align">
+                                            <div class="col s12 l12 ">
+                                                <i class="material-icons cyan medium circle white-text accent-4">supervisor_account</i>
+                                                <!-- notice the "circle" class -->
+                                            </div>
+                                            <div class="col s12 l12 center-align">
+                                              <span class="blue-grey-text darken-3">
+                                                {% for i  in  people|split%}
+                                                   {{ i | truncatechars_html:20 }} <br>
+                                                    {% endfor %}
+                                              </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
-
         {% endfor %}
     </div>
-{# pagination #}
-    <div class=" row">
-        {% if context.has_other_pages %}
-            <ul class="pagination">
-                {% if context.has_previous %}
-                    <li><a href="?page={{ context.previous_page_number }}">&laquo;</a>
-                    </li>
-                {% else %}
-                    <li class="disabled"><span>&laquo;</span></li>
-                {% endif %}
-                {% for i in context.paginator.page_range %}
-                    {% if context.number == i %}
-                        <li class="cyan"><span>{{ i }} <span class=" cyan">(current)</span></span></li>
-                    {% else %}
-                        <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                {% endfor %}
-                {% if context.has_next %}
-                    <li><a href="?page={{ context.next_page_number }}">&raquo;</a></li>
-                {% else %}
-                    <li class="disabled"><span>&raquo;</span></li>
-                {% endif %}
-            </ul>
-        {% endif %}
-    </div>
-{{ mongo }}
-</div>
-</body>
-</html>
+    {# pagination #}
+
+{% endblock %}

@@ -4,12 +4,16 @@ from .group import create_groups, save_groups, read_from_file
 from django.conf import settings
 # Create your views here.
 from .models import  Groups
+import os
+
+
 
 def Home(request):
     # set default paage to 1
     page = 1
     # Get how many records to show per page 
     groups_per_page = settings.GROUPS_PER_PAGE
+
     if request.method == "POST":
         # get the maximum number per group
         groups_of = int(request.POST.get('group'))
@@ -29,7 +33,25 @@ def Home(request):
         content_to_view = paginator.page(page)
         content = {
             "context":content_to_view,
-            "date_generated" : groups.created
+            "date_generated" : groups.created,
                    }
         return render(request, context=content, template_name="index.html")
     return render (request, template_name="index.html")
+
+def get_collections(request):
+    groups = Groups.objects.order_by('-created')
+    context= {"context":groups}
+
+    return render(request, context=context, template_name="collections.html")
+
+def get_group(request,id):
+    page = request.GET.get('page') or 1
+    groups_per_page = settings.GROUPS_PER_PAGE
+    group = Groups.objects.filter(id=id).first()
+    paginator = Paginator(group.groups, groups_per_page)
+    content_to_view = paginator.page(page)
+    content = {
+        "context": content_to_view,
+        "date_generated": group.created,
+    }
+    return render(request, context=content, template_name="index.html")

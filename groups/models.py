@@ -1,8 +1,10 @@
 from mongoengine import *
 import datetime
+import os
 # https://github.com/MongoEngine/mongoengine
-# connect to the local mongodb
-connect('local')
+# connect to the local mongodb if the name provided does not exist a new db is created with a similar names
+CONN = "{}".format(os.getenv('MLAB_URL'))
+connect(host=CONN)
 
 class Groups(Document):
     '''
