@@ -10,15 +10,15 @@ def read_from_file(max_number_per_group):
     '''
     with open(os.path.abspath('./groups/sample.txt'), 'r') as f:
         names = f.read()
-        names_list = names.replace(" ", '_').split()
+        names_list = names.replace(" ", '').split()
     return create_groups(names_list, max_number_per_group)
 
 
-def create_groups(names_list, max_number_per_group=2):
+def create_groups(names_list, max_number_per_group):
     '''
     :param names_list:  the list with names to be grouped
     :param max_number_per_group:  the max number of objects in a group
-    :return: returns a new list of groups
+    :return: returns a list of groups
     '''
     result = list()
     shuffle(names_list)
@@ -30,8 +30,7 @@ def create_groups(names_list, max_number_per_group=2):
             if stop > len(names_list)-1:
                 break
         else:
-            return ['list is empty ']
-
+            return ['list was empty ']
     return result
 
 def save_groups(list_of_groups):
@@ -41,6 +40,5 @@ def save_groups(list_of_groups):
     '''
     groups = Groups(groups=list_of_groups)
     groups.save()
-    return groups
-
+    return groups.groups
 
