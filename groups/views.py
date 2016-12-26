@@ -5,8 +5,6 @@ from django.conf import settings
 from .models import  Groups
 
 
-
-
 def Home(request):
     # set default page to 1
     page = 1
@@ -92,6 +90,5 @@ def get_whole_list(request,id ):
     content = {
         "context": content_to_view,
     }
-
     return render(request, context=content, template_name="list.html")
 
