@@ -1,0 +1,37 @@
+{% extends '../partials/base.html' %}
+{% load material_form %}
+{% block content %}
+    <div class="row valign-wrapper col s12" style="min-height: 500px">
+        <div class="card valign col l6 offset-l3 s12">
+            <form method="POST">
+                <div class="row">
+                    <div class="card-image cyan" style="min-height: 100px">
+
+              <span class="card-title">Login</span>
+            </div>
+
+                </div>
+                {% csrf_token %}
+                {% form form=form %}{% endform %}
+                <div class="row">
+                    <div class="col l12" style="padding:10px">
+
+                        <button type="submit" name="_submit" class="btn btn-large  col l8 s8 offset-l2">
+                            <i class="material-icons">vpn_key</i>
+                            login</button>
+                    </div>
+                </div>
+                <div class="divider"></div><div class="divider"></div>
+                <br>
+                <span class="center-align cyan-text col l12 s12"> or </span>
+                <br>
+
+                <div class=" text-center" style="height: 100px">
+
+
+                    <a href="{% url 'register' %}" class="btn blue col l8 s8 offset-l2"> <i class="material-icons medium ">assignment_ind</i>signUp</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

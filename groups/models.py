@@ -1,11 +1,10 @@
 from mongoengine import *
 from django.conf import settings
 import datetime
-import os
 # https://github.com/MongoEngine/mongoengine
 # connect to the local mongodb if the name provided does not exist a new db is created with a similar names
 CONN = settings.CONN
-connect('hangout',host=CONN)
+connect('hangout', host=CONN)
 
 class Groups(Document):
     '''
