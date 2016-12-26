@@ -129,3 +129,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),]
 STATIC_ROOT='staticfiles'
 # default
 GROUPS_PER_PAGE = 6
+# Redirect after login if missing Next param
+# the following settings will be resolved to their respective url
+LOGIN_REDIRECT_URL= 'login'
+LOGIN_URL='login'

@@ -15,14 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from groups import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^login/$', auth_views.login, name='login'),
+    url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
     url(r'^$', views.Home, name="index"),
     url(r'^collections/$', views.get_collections, name="collections"),
     url(r'^collections/(?P<id>[a-z,0-9]+)/$', views.get_group, name="group"),
     url(r'^list/(?P<id>[a-z,0-9]+)/$', views.get_whole_list, name="list"),
+    url(r'^register/$', views.UserRegisterView.as_view(), name='register')
 
 
 ]
