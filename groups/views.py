@@ -5,15 +5,13 @@ from django.core.urlresolvers import reverse
 from .group import save_groups, create_groups
 from .models import Groups
 from django.contrib.auth.models import User
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import RegistratioForm
 
 
 class UserRegisterView(CreateView):
-    form_class=RegistratioForm
-    # fields = ['first_name', 'last_name', 'username', 'email', 'password']
+    form_class = RegistratioForm
     model = User
     template_name = 'register.html'
     success_url = '/'
@@ -25,10 +23,11 @@ class UserRegisterView(CreateView):
         form.cleaned_data is a dict so change it to kwargs
         :return: redirect to thr success_url
         """
-        p = form.cleaned_data.pop('password_confirm')
-        if p == form.cleaned_data.get('password'):
+        cpassword = form.cleaned_data.pop('password_confirm')
+        if cpassword == form.cleaned_data.get('password'):
             User.objects.create_user(**form.cleaned_data)
             return redirect(self.success_url)
+
         # add error to the form context
         form.add_error('password_confirm', 'The passwords do not match')
         return self.render_to_response(self.get_context_data(form=form))
@@ -53,7 +52,6 @@ def Home(request):
 
 @login_required
 def get_collections(request):
-
     """
     Gets all the collections in the mongo database
     :param request: request object
