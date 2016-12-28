@@ -131,5 +131,5 @@ STATIC_ROOT='staticfiles'
 GROUPS_PER_PAGE = 6
 # Redirect after login if missing Next param
 # the following settings will be resolved to their respective url
-LOGIN_REDIRECT_URL= 'login'
+LOGIN_REDIRECT_URL= 'index'
 LOGIN_URL='login'

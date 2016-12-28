@@ -1,37 +1,32 @@
 {% extends './partials/base.html' %}
 {% load material_form %}
 {% block content %}
-<div class="row valign-wrapper col s12" style="min-height: 500px">
-        <div class="card valign col l6 offset-l3 s12">
-            <form method="POST">
-                <div class="row">
-                    <div class="card-image cyan" style="min-height: 100px">
 
-              <span class="card-title">Sign Up</span>
-            </div>
-
+    <div class="row valign-wrapper col s12 mid" style="min-height: 80vh">
+        <div class="card valign col l6 offset-l3 s12 blue-grey lighten-5">
+            <div class="row  ">
+                <div class="col l3  center-align offset-l4 offset-s4 " style="min-height: 150px">
+                    <i class="material-icons large blue-grey-text text-lighten-1">assignment_ind</i>
+                    <br>
+                    <span class="card-title blue-grey-text">SignUp</span>
                 </div>
-                {% csrf_token %}
-                {% form form=form %}{% endform %}
-                <div class="row">
-                    <div class="col l12" style="padding:10px">
-
-                        <button type="submit" name="_submit" class="btn btn-large  col l8 s8 offset-l2">
+            </div>
+            <div class="divider"></div>
+            <form method="POST" class="white">
+                <div class="row ">
+                    <div class="col l10 s12 offset-l1 ">
+                        {% csrf_token %}
+                        {% form form=form %}{% endform %}
+                        <button type="submit" name="_submit" class=" cyan darken-2 btn btn-large right ">
                             <i class="material-icons">assignment_ind</i>
-                            SignUp </button>
+                            SignUp
+                        </button>
                     </div>
                 </div>
-                <div class="divider"></div><div class="divider"></div>
-                <br>
-                <span class="center-align cyan-text col l12 s12"> or </span>
-                <br>
 
-                <div class=" text-center" style="height: 100px">
-
-
-                    <a href="{% url 'login' %}" class="btn blue col l8 s8 offset-l2"> <i class="material-icons medium ">vpn_key</i>login</a>
-                </div>
             </form>
+            <br><br>
+
         </div>
     </div>
 {% endblock %}
