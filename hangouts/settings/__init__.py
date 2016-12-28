@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG =bool(os.getenv('DEBUG',False))
+DEBUG = os.getenv('DEBUG',False)
 if DEBUG:
     from .dev_settings import *
 else:
